@@ -18,7 +18,7 @@ feature 'Create question', %q{
     fill_in 'Body', with: 'Body text'
     click_on 'Create'
 
-    expect(page).to have_content ''
+    expect(page).to have_content 'Your question successfully created.'
   end
 
   scenario 'Non-authenticated user try to create question' do
