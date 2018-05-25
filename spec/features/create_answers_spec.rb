@@ -17,6 +17,14 @@ feature 'User create answers for question', %q{
     expect(page).to have_content 'Answer text'
   end
 
+  scenario 'Authenticated user create answer with invalid attributes' do
+    sign_in(user)
+
+    new_invalid_answer(question)
+
+    expect(page).to have_content '1 errors detected:'
+  end
+
   scenario 'Non-authenticated user try to create new answer' do
     new_answer(question)
 

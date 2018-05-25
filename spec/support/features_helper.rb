@@ -11,4 +11,10 @@ module FeaturesHelper
     fill_in 'Body', with: 'Answer text'
     click_on 'New answer'
   end
+
+  def new_invalid_answer(question)
+    visit question_path(question)
+    fill_in 'Body', with: nil
+    click_on 'New answer'
+  end
 end

@@ -1,11 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe AnswersController, type: :controller do
-  let(:author) { create(:user) }
   let(:question) { create(:question) }
-  let(:answer) { create(:answer, question: question, user: author) }
 
   describe 'POST #create' do
+
     sign_in_user
 
     it 'assigns the request question to @questiuon' do
@@ -22,6 +21,11 @@ RSpec.describe AnswersController, type: :controller do
         post :create, params: { question_id: question, answer: attributes_for(:answer) }
         expect(response).to redirect_to question_path(question)
       end
+
+      it 'created by current user' do
+        post :create, params: { question_id: question, answer: attributes_for(:answer) }
+        expect(assigns(:answer).user_id).to eq @user.id
+      end
     end
 
     context 'with invalid attributes' do
@@ -37,17 +41,20 @@ RSpec.describe AnswersController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    before { answer }
+    let(:author) { create(:user) }
+    let!(:answer) { create(:answer, question: question )}
 
     context 'User is author of answer' do
       sign_in_author
 
+      let!(:author_answer) { create(:answer, question: question, user: author )}
+
       it 'delete answer' do
-        expect { delete :destroy, params: { id: answer } }.to change(question.answers, :count).by(-1)
+        expect { delete :destroy, params: { id: author_answer } }.to change(question.answers, :count).by(-1)
       end
 
       it 'redirect to question show view' do
-        delete :destroy, params: { id: answer }
+        delete :destroy, params: { id: author_answer }
         expect(response).to redirect_to question_path(question)
       end
     end
@@ -55,8 +62,8 @@ RSpec.describe AnswersController, type: :controller do
     context 'User is not author of answer' do
       sign_in_user
 
-      it 'delete question' do
-        expect { delete :destroy, params: { id: answer } }.to_not change(question.answers, :count)
+      it 'delete answer' do
+        expect { delete :destroy, params: { id: answer } }.to_not change(Answer, :count)
       end
 
       it 'redirect to show view' do

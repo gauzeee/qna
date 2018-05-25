@@ -19,15 +19,21 @@ feature 'User delete answer', %q{
     sign_in(author)
     visit question_path(question)
     click_on 'Delete answer'
-
     expect(page).to have_content 'Answer successfully deleted.'
+    expect(page).to_not have_content answer.body
+
   end
 
   scenario 'Not author delete answer' do
     sign_in(user)
     visit question_path(question)
-    click_on 'Delete answer'
 
-    expect(page).to have_content 'You are not an author of this answer.'
+    expect(page).to_not have_content 'Delete answer'
+  end
+
+  scenario 'Non-authenticated user delete answer' do
+    visit question_path(question)
+
+    expect(page).to_not have_content 'Delete answer'
   end
 end

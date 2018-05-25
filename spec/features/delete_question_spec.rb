@@ -14,13 +14,20 @@ feature 'User delete question', %q{
     visit question_path(question)
     click_on 'Delete question'
     expect(page).to have_content 'Question successfully deleted.'
+    expect(page).to_not have_content question.title
+    expect(page).to_not have_content question.body
   end
 
   scenario 'Not author delete question' do
     sign_in(user)
     visit question_path(question)
-    click_on 'Delete question'
-    save_and_open_page
-    expect(page).to have_content 'Only author can delete this question.'
+
+    expect(page).to_not have_content 'Delete question'
+  end
+
+  scenario 'Non-authenticated user delete question' do
+    visit question_path(question)
+
+    expect(page).to_not have_content 'Delete question'
   end
 end

@@ -72,8 +72,13 @@ RSpec.describe QuestionsController, type: :controller do
     sign_in_user
     context 'with valid attributes' do
       it 'saves the new question' do
-      expect { post :create, params: { user_id: author, question: attributes_for(:question) } }.to change(Question, :count).by(1)
-    end
+        expect { post :create, params: { user_id: author, question: attributes_for(:question) } }.to change(Question, :count).by(1)
+      end
+
+      it 'created by current user' do
+        post :create, params: { user_id: author, question: attributes_for(:question) }
+        expect(assigns(:question).user_id).to eq @user.id
+      end
 
       it 'redirects to show view' do
         post :create, params: { question: attributes_for(:question) }
@@ -89,43 +94,6 @@ RSpec.describe QuestionsController, type: :controller do
       it 're-renders new view' do
         post :create, params: { question: attributes_for(:invalid_question) }
         expect(response).to render_template :new
-      end
-    end
-  end
-
-  describe 'PATCH #update' do
-    sign_in_user
-
-    context 'valid attributes' do
-      it 'assigns the requested questions to @question' do
-        patch :update, params: { id: question, question: attributes_for(:question) }
-        expect(assigns(:question)).to eq question
-      end
-
-      it 'changes question attributes' do
-        patch :update, params: { id: question, question: { title: 'new title', body: 'new body' } }
-        question.reload
-        expect(question.title).to eq 'new title'
-        expect(question.body).to eq 'new body'
-      end
-
-      it 'redirects to the updated question' do
-        patch :update, params: { id: question, question: attributes_for(:question) }
-        expect(response).to redirect_to question
-      end
-    end
-
-    context 'invalid attributes' do
-      before { patch :update, params: { id: question, question: { title: 'new title', body: nil } } }
-
-      it 'does not change question attributes' do
-        question.reload
-        expect(question.title).to eq 'MyString'
-        expect(question.body).to eq 'MyText'
-      end
-
-      it 're-renders edit view' do
-      expect(response).to render_template :edit
       end
     end
   end
