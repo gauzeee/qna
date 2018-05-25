@@ -134,10 +134,7 @@ RSpec.describe QuestionsController, type: :controller do
     before { question }
 
     context 'user is author of question' do
-      before do
-        @request.env['devise.mapping'] = Devise.mappings[:user]
-        sign_in(author)
-      end
+      sign_in_author
 
       it 'delete question' do
         expect { delete :destroy, params: { id: question } }.to change(Question, :count).by(-1)
@@ -161,4 +158,5 @@ RSpec.describe QuestionsController, type: :controller do
         expect(response).to redirect_to question_path(question)
       end
     end
+  end
 end

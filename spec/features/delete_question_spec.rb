@@ -1,6 +1,10 @@
 require 'rails_helper'
 
-feature 'Delete question' do
+feature 'User delete question', %q{
+  In order to be able to delte question
+  As an authenticated user
+  I want to be able to delete question
+} do
   given(:author) { create(:user) }
   given(:user) { create(:user) }
   given(:question) { create(:question, user: author) }

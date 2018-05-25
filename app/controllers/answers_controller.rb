@@ -1,6 +1,7 @@
 class AnswersController < ApplicationController
-  before_action :authenticate_user!, only: :create
+  before_action :authenticate_user!, only: %i(create destroy)
   before_action :find_question, only: %i(new create)
+  before_action :find_answer, only: :destroy
 
   def create
     @answer = @question.answers.new(answer_params)
@@ -10,6 +11,16 @@ class AnswersController < ApplicationController
     else
       render 'questions/show'
     end
+  end
+
+  def destroy
+    if current_user == @answer.user
+      @answer.destroy
+      flash[:notice] = 'Answer successfully deleted.'
+    else
+      flash[:alert] = 'You are not an author of this answer.'
+    end
+    redirect_to question_path(@answer.question)
   end
 
   private
@@ -23,7 +34,7 @@ class AnswersController < ApplicationController
   end
 
   def answer_params
-    params.require(:answer).permit(:body)
+    params.require(:answer).permit(:body).merge({ user_id: current_user.id })
   end
 end
 
