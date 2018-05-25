@@ -13,5 +13,6 @@ feature 'Authenticated user can log out', %q{
     click_on 'Log out'
 
     expect(page).to have_content 'Signed out successfully.'
+    expect(current_path).to eq root_path
   end
 end

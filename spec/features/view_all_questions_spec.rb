@@ -7,7 +7,7 @@ feature 'User can view questions list', %q{
 } do
 
   scenario 'All users can view questions list' do
-    visit question_path
+    visit questions_path
 
     expect(page).to have_content 'Questions'
   end
