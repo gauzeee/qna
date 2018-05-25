@@ -1,0 +1,18 @@
+require 'rails_helper'
+
+feature 'User can view question and answers', %q{
+  In order to find problem solution
+  As an user
+  I want to be able to see question and answers for it
+} do
+  given(:question) { create(:question) }
+
+  given(:answer) { create(:answer) }
+
+  scenario 'User can view question and answers' do
+    visit question_path(question)
+
+    expect(page).to have_content question.title
+    expect(page).to have_content answer.body
+  end
+end
