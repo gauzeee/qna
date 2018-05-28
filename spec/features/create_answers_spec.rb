@@ -9,18 +9,22 @@ feature 'User create answers for question', %q{
 
   given(:question) { create(:question) }
 
-  scenario 'Authenticated user create answer for question' do
+  scenario 'Authenticated user create answer for question', js: true do
     sign_in(user)
 
     new_answer(question)
 
-    expect(page).to have_content 'Answer text'
+    expect(current_path).to eq question_path(question)
+    within '.answers' do
+      expect(page).to have_content 'Answer text'
+    end
   end
 
-  scenario 'Authenticated user create answer with invalid attributes' do
+  scenario 'Authenticated user create answer with invalid attributes', js: true do
     sign_in(user)
 
     new_invalid_answer(question)
+    save_and_open_page
 
     expect(page).to have_content "Body can't be blank"
   end

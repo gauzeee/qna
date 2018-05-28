@@ -8,13 +8,13 @@ module FeaturesHelper
 
   def new_answer(question)
     visit question_path(question)
-    fill_in 'Body', with: 'Answer text'
-    click_on 'New answer'
+    fill_in 'Your answer', with: 'Answer text'
+    click_on 'Create'
   end
 
   def new_invalid_answer(question)
     visit question_path(question)
-    fill_in 'Body', with: nil
-    click_on 'New answer'
+    fill_in 'Your answer', with: nil
+    click_on 'Create'
   end
 end

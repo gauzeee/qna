@@ -6,5 +6,6 @@ p= @question.body
 
 = render 'answers/form'
 
-h5 Answers
-= render @question.answers
+div class="answers"
+  h5 Answers
+  = render @question.answers
