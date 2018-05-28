@@ -76,7 +76,7 @@ RSpec.describe QuestionsController, type: :controller do
       end
 
       it 'created by current user' do
-        post :create, params: { user_id: author, question: attributes_for(:question) }
+        post :create, params: { question: attributes_for(:question) }
         expect(assigns(:question).user_id).to eq @user.id
       end
 
@@ -88,7 +88,7 @@ RSpec.describe QuestionsController, type: :controller do
 
     context 'with invalid attributes' do
       it 'does not save the question' do
-        expect { post :create, params: { user_id: author, question: attributes_for(:invalid_question) } }.to_not change(Question, :count)
+        expect { post :create, params: { question: attributes_for(:invalid_question) } }.to_not change(Question, :count)
       end
 
       it 're-renders new view' do

@@ -22,7 +22,7 @@ feature 'User create answers for question', %q{
 
     new_invalid_answer(question)
 
-    expect(page).to have_content '1 errors detected:'
+    expect(page).to have_content "Body can't be blank"
   end
 
   scenario 'Non-authenticated user try to create new answer' do

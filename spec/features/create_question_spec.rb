@@ -31,7 +31,8 @@ feature 'Create question', %q{
     fill_in 'Title', with: nil
     fill_in 'Body', with: nil
     click_on 'Create'
-    expect(page).to have_content '2 errors detected:'
+    expect(page).to have_content "Title can't be blank"
+    expect(page).to have_content "Body can't be blank"
     end
 
   scenario 'Non-authenticated user try to create question' do
