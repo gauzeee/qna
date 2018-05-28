@@ -1,5 +1,5 @@
 =form_with model:[@question, @answer] do |f|
-  div class="errors"
+  .errors
     = render 'shared/errors', resource: @answer
   = f.label :body, 'Your answer'
   = f.text_area :body
