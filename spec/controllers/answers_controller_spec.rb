@@ -50,12 +50,7 @@ RSpec.describe AnswersController, type: :controller do
       let!(:author_answer) { create(:answer, question: question, user: author )}
 
       it 'delete answer' do
-        expect { delete :destroy, params: { id: author_answer } }.to change(question.answers, :count).by(-1)
-      end
-
-      it 'redirect to question show view' do
-        delete :destroy, params: { id: author_answer }
-        expect(response).to redirect_to question_path(question)
+        expect { delete :destroy, params: { id: author_answer }, format: :js }.to change(Answer, :count).by(-1)
       end
     end
 
@@ -63,12 +58,18 @@ RSpec.describe AnswersController, type: :controller do
       sign_in_user
 
       it 'delete answer' do
-        expect { delete :destroy, params: { id: answer } }.to_not change(Answer, :count)
+        expect { delete :destroy, params: { id: answer }, format: :js }.to_not change(Answer, :count)
+      end
+    end
+
+    context 'non-authenticated user delete question' do
+      it 'deletes answer' do
+        expect { delete :destroy, params: { id: answer }, format: :js }.to_not change(Answer, :count)
       end
 
-      it 'redirect to show view' do
+      it 'redirect to new session view' do
         delete :destroy, params: { id: answer }
-        expect(response).to redirect_to question_path(question)
+        expect(response).to redirect_to new_user_session_path
       end
     end
   end

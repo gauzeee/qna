@@ -9,11 +9,11 @@ module FeaturesHelper
   def new_answer(question)
     visit question_path(question)
     fill_in 'Your answer', with: 'Answer text'
-    click_on 'Create'
+    click_on 'New answer'
   end
 
   def new_invalid_answer(question)
     visit question_path(question)
-    click_on 'Create'
+    click_on 'Save'
   end
 end

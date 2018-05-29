@@ -23,7 +23,10 @@ feature 'User create answers for question', %q{
   scenario 'Authenticated user create answer with invalid attributes', js: true do
     sign_in(user)
 
-    new_invalid_answer(question)
+    visit question_path(question)
+    within('.answer-form') do
+      click_on 'New answer'
+    end
 
     expect(page).to have_content "Body can't be blank"
   end

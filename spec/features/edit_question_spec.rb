@@ -3,7 +3,7 @@ require_relative 'acceptance_helper'
 feature 'Question edit', %q{
   In order to fix mistake
   As an author of question
-  I'd like to be able to edit question
+  I'd like to be able to edit my question
 } do
 
   given(:author) { create(:user) }
@@ -23,18 +23,37 @@ feature 'Question edit', %q{
       expect(page).to have_link 'Edit'
     end
 
-    scenario 'try to edit his question' do
-      sign_in author
-      visit question_path(question)
+    describe 'try to edit his question' do
+      before do
+        sign_in author
+        visit question_path(question)
+      end
+      scenario 'with valid attributes', js: true do
+        within('.question') do
+          click_on 'Edit'
+          save_and_open_page
+          fill_in 'Title', with: 'new title'
+          fill_in 'Body', with: 'new body'
+          click_on 'Save'
+        end
+        expect(page).to_not have_content question.title
+        expect(page).to_not have_content question.body
+        expect(page).to have_content 'new title'
+        expect(page).to have_content 'new body'
+      end
 
-      click_on 'Edit'
-      fill_in 'Title', with: 'new title'
-      fill_in 'Body', with: 'new question'
-      click_on 'Create'
-      expect(page).to_not have_content question.title
-      expect(page).to_not have_content question.body
-      expect(page).to have_content 'new title'
-      expect(page).to have_content 'new question'
+      scenario 'with invalid attributes', js: true do
+
+        within('.question') do
+          click_on 'Edit'
+          fill_in 'Title', with: nil
+          fill_in 'Body', with: nil
+          click_on 'Save'
+        end
+        expect(page).to have_content "Title can't be blank"
+        expect(page).to have_content "Body can't be blank"
+      end
+
     end
 
     scenario "try to edit other user's question" do
