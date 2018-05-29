@@ -1,4 +1,4 @@
-require 'rails_helper'
+require_relative 'acceptance_helper'
 
 feature 'User create answers for question', %q{
   In order to help with problem of question
@@ -24,7 +24,6 @@ feature 'User create answers for question', %q{
     sign_in(user)
 
     new_invalid_answer(question)
-    save_and_open_page
 
     expect(page).to have_content "Body can't be blank"
   end

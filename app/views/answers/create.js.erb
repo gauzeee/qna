@@ -1,4 +1,4 @@
-<% if @answer.errors.any? %>
+<% if @answer.errors.present? %>
   $('.errors').html('<%= j render 'shared/errors', resource: @answer %>')
 <% else %>
   $('.answers').append('<%= j render @answer %>')

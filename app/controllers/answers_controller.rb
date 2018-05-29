@@ -1,12 +1,16 @@
 class AnswersController < ApplicationController
-  before_action :authenticate_user!, only: %i(create destroy)
+  before_action :authenticate_user!, only: %i(update create destroy)
   before_action :find_question, only: :create
-  before_action :find_answer, only: :destroy
+  before_action :find_answer, only: %i(update destroy)
 
   def create
     @answer = @question.answers.build(answer_params)
     @answer.user = current_user
     @answer.save
+  end
+
+  def update
+    @answer.update(answer_params) if current_user.author_of?(@answer)
   end
 
   def destroy

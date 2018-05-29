@@ -14,7 +14,6 @@ module FeaturesHelper
 
   def new_invalid_answer(question)
     visit question_path(question)
-    fill_in 'Your answer', with: nil
     click_on 'Create'
   end
 end

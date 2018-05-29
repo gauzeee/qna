@@ -1,4 +1,4 @@
-require 'rails_helper'
+require_relative 'acceptance_helper'
 
 feature 'Authenticated user can log out', %q{
   In order to be able lo exit from my account
