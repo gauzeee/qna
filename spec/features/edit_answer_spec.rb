@@ -28,10 +28,12 @@ feature 'Answer editing', %q{
 
     scenario 'try to edit his answer', js: true do
       sign_in author
+
       visit question_path(question)
       click_on 'Edit'
+
       within('.answers') do
-        fill_in 'Answer', with: 'edited answer'
+        fill_in 'Body', with: 'edited answer'
         click_on 'Save'
 
         expect(page).to_not have_content answer.body
@@ -44,7 +46,7 @@ feature 'Answer editing', %q{
     scenario 'try to edit answer of other user' do
       sign_in(user)
       visit question_path(question)
-      whithin('.answers') do
+      within('.answers') do
         expect(page).to_not have_link 'Edit'
       end
     end

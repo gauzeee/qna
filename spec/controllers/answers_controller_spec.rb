@@ -76,23 +76,19 @@ RSpec.describe AnswersController, type: :controller do
   describe 'PATCH #update' do
     let(:answer) { create(:answer) }
 
-    context '' do
+    context 'current user is author of answer' do
       sign_in_user
+      let!(:new_answer) { create(:answer, question: question, user: @user) }
 
       it 'assigns the request answer to @answer' do
-      patch :update, params: { id: answer, answer: attributes_for(:answer), format: :js }
-      expect(assigns(:answer)).to eq answer
-    end
+        patch :update, params: { id: answer, answer: attributes_for(:answer), format: :js }
+        expect(assigns(:answer)).to eq answer
+      end
 
       it 'render update template' do
         patch :update, params: { id: answer, answer: { body: 'new body'}, format: :js }
         expect(response).to render_template :update
       end
-    end
-
-    context 'current user is author of answer' do
-      sign_in_user
-      let!(:new_answer) { create(:answer, question: question, user: @user) }
 
       it 'change answer attributes' do
         patch :update, params: { id: new_answer, answer: { body: 'new body'}, format: :js }
