@@ -6,8 +6,7 @@ h1.question-title = @question.title
 
   - if current_user&.author_of?(@question)
     =<> link_to 'Edit', '', class: 'edit-question-link'
-    =<> link_to 'Delete question', question_path(@question), method: :delete,
-              data: { confirm: 'Аre you sure?' }
+    =<> link_to 'Delete question', question_path(@question), method: :delete
 
 h2 Answers
 .answers
