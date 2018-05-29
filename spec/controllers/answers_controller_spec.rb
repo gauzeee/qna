@@ -91,13 +91,13 @@ RSpec.describe AnswersController, type: :controller do
     end
 
     context 'current user is author of answer' do
-      @user = sign_in_user
-      let!(:user_answer) { create(:answer, question: question, user: @user) }
+      sign_in_user
+      let!(:new_answer) { create(:answer, question: question, user: @user) }
 
       it 'change answer attributes' do
-        patch :update, params: { id: user_answer, answer: { body: 'new body'}, format: :js }
-        user_answer.reload
-        expect(user_answer.body).to eq 'new body'
+        patch :update, params: { id: new_answer, answer: { body: 'new body'}, format: :js }
+        new_answer.reload
+        expect(new_answer.body).to eq 'new body'
       end
     end
 
@@ -111,7 +111,7 @@ RSpec.describe AnswersController, type: :controller do
       end
     end
 
-    context 'non-authenticated user edit question' do
+    context 'non-authenticated user edit answer' do
       it 'change answer attributes' do
         patch :update, params: { id: answer, answer: { body: 'new body'}, format: :js }
         answer.reload
