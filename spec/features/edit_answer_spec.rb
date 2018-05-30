@@ -28,11 +28,9 @@ feature 'Answer editing', %q{
 
     scenario 'try to edit his answer', js: true do
       sign_in author
-
       visit question_path(question)
-      click_on 'Edit'
-
       within('.answers') do
+        click_on 'Edit'
         fill_in 'Body', with: 'edited answer'
         click_on 'Save'
 

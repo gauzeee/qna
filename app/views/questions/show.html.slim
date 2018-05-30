@@ -8,9 +8,14 @@ h1.question-title = @question.title
     =<> link_to 'Edit', '', class: 'edit-question-link'
     =<> link_to 'Delete question', question_path(@question), method: :delete
 
+h2 Best Answer
+.best-answer
+ = render @question.best_answer
+
 h2 Answers
 .answers
   = render @question.answers
+
 
 h2 New answer
 .answer-form
