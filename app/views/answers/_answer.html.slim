@@ -1,11 +1,11 @@
 = content_tag :div, class: "answer-#{answer.id}" do
   - if answer.persisted?
     = answer.body
+    - if current_user && current_user.author_of?(answer.question)
+      =<> link_to 'Set Best', set_best_answer_path(answer), class: 'set-best-answer', method: :patch, remote: true, data: { answer_id: answer.id }
     - if current_user && current_user.author_of?(answer)
       =<> link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id }
       =<> link_to 'Delete answer', answer_path(answer), method: :delete, remote: true
-    - if current_user && current_user.author_of?(answer.question)
-      =<> link_to 'Set Best', set_best_answer_path(answer), class: 'set-best-answer', method: :patch, remote: true, data: { answer_id: answer.id }
       p
         =form_with model: answer, class: 'edit_answer', html: { id: "edit-answer-#{answer.id}" } do |f|
           .errors
@@ -14,3 +14,4 @@
           = f.text_area :body
 
           = f.submit 'Save'
+

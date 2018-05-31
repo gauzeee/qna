@@ -1,6 +1,6 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!, only: %i(update create destroy set_best)
-  before_action :find_question, only: :create
+  before_action :find_question, only: %i(create)
   before_action :find_answer, only: %i(update destroy set_best)
 
   def create
@@ -18,26 +18,11 @@ class AnswersController < ApplicationController
   end
 
   def set_best
-    if current_user.author_of?(@answer.question)
-      got_best
-      @answer.best = true
-      @answer.save
-    end
+    @answer.question.current_best_answer.update(:best => false) if @answer.question.got_best?
+    @answer.update(:best => true) if current_user.author_of?(@answer.question)
   end
 
   private
-
-  def got_best
-    answers = {}
-    @answer.question.answers.each do |answer|
-      answers.store(answer.id, answer.best)
-    end
-    if answers.value?(true)
-      current_best_answer = Answer.find(answers.find{ |k,v| v == true }[0])
-      current_best_answer.best = false
-      current_best_answer.save
-    end
-  end
 
   def find_answer
     @answer = Answer.find(params[:id])

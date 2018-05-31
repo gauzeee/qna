@@ -15,7 +15,6 @@ feature 'Set best answer', %q{
 
       before do
         sign_in(author)
-        visit question_path(question)
       end
 
       scenario 'author sees Set Best link', js: true do
@@ -23,7 +22,7 @@ feature 'Set best answer', %q{
         expect(page).to have_link 'Set Best'
       end
 
-      scenario 'author can set best answer', js: true do
+      scenario 'can set best answer', js: true do
         new_answer(question)
         click_on 'Set Best'
         within('.best-answer') do
@@ -31,7 +30,7 @@ feature 'Set best answer', %q{
         end
       end
 
-      scenario 'author can set another answer as best', js: true do
+      scenario 'can set another answer as best', js: true do
         new_answer(question)
 
         click_on 'Set Best'
@@ -39,7 +38,6 @@ feature 'Set best answer', %q{
           expect(page).to have_content 'Answer text'
         end
         one_more_answer(question)
-
         within('.answers') do
           click_on 'Set Best'
         end
