@@ -18,8 +18,9 @@ class AnswersController < ApplicationController
   end
 
   def set_best
-    @answer.question.current_best_answer.update(:best => false) if @answer.question.got_best?
-    @answer.update(:best => true) if current_user.author_of?(@answer.question)
+    Answer.transaction do
+      @answer.update_best if current_user.author_of?(@answer.question)
+    end
   end
 
   private
