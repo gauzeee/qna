@@ -7,7 +7,9 @@ class Answer < ApplicationRecord
   scope :not_best, -> { where(best: false) }
 
   def update_best
-    self.question.current_best_answer.update(best: false) if self.question.got_best?
-    self.update(best: true)
+    Answer.transaction do
+      self.question.current_best_answer.update!(best: false) if self.question.got_best?
+      self.update!(best: true)
+    end
   end
 end
