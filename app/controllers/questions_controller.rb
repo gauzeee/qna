@@ -29,9 +29,6 @@ class QuestionsController < ApplicationController
     end
   end
 
-  def best
-  end
-
   def update
     @question.update(question_params) if current_user.author_of?(@question)
   end

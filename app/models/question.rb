@@ -4,10 +4,10 @@ class Question < ApplicationRecord
   validates :title, :body, presence: true
 
   def current_best_answer
-    self.answers.current_best[0]
+    self.answers.current_best.first
   end
 
   def got_best?
-    self.answers.current_best.any?
+    self.answers.current_best.exists?
   end
 end
