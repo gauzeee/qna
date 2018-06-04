@@ -3,5 +3,8 @@
     = render 'shared/errors', resource: @answer
   = f.label :body, 'Your answer'
   = f.text_area :body
+  = f.fields_for :attachments do |a|
+    = a.label :file
+    = a.file_field :file
 
   = f.submit 'New answer'
