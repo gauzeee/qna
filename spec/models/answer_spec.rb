@@ -7,25 +7,21 @@ RSpec.describe Answer, type: :model do
 
   describe 'update best answer' do
     let(:question) { create(:question) }
-    let(:answer) { create(:answer, question: question) }
+    let(:new_answer) { create(:answer, question: question) }
 
-    it 'when question have best answer' do
+    it 'already have best answer as current best answer' do
       best_answer = create(:answer, question: question, best: true)
-
       expect(best_answer).to eql question.current_best_answer
-
-      answer.update_best
-
-      expect(answer).to eql question.current_best_answer
-      expect(best_answer).to_not eql question.current_best_answer
     end
 
-    it 'when question have not best answer' do
+    it 'set new answer as best answer of question' do
+      new_answer.update_best
+
+      expect(new_answer).to eql question.current_best_answer
+    end
+
+    it 'have not current best answer of question' do
       expect(question.current_best_answer).to eq nil
-
-      answer.update_best
-
-      expect(answer).to eql question.current_best_answer
     end
   end
 end
