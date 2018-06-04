@@ -9,7 +9,8 @@
 
   p Attachments:
   = f.fields_for :attachments do |a|
-    = a.label :file
-    = a.file_field :file
+    = render 'attachment_fields', f: a
+  .links
+    = link_to_add_association 'Add file', f, :attachments
 
   = f.submit 'Save'
