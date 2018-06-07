@@ -11,5 +11,6 @@ rateListener = ->
     $(voteContainerClass + ' .rating').html(data.rating)
     $(voteContainerClass + ' .revoke-link').addClass('revoke-link-hider')
 
+$(document).ready(rateListener)
 $(document).on('turbolinks:load', rateListener)
 

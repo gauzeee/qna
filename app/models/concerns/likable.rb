@@ -6,15 +6,11 @@ module Likable
   end
 
   def rate_up(user)
-    like = likes.build(rating: 1)
-    like.user = user
-    like.save
+    likes.create!(user: user, rating: 1) unless like_of?(user)
   end
 
   def rate_down(user)
-    like = likes.build(rating: -1)
-    like.user = user
-    like.save
+    likes.create!(user: user, rating: -1) unless like_of?(user)
   end
 
   def like_of?(user)
@@ -22,6 +18,6 @@ module Likable
   end
 
   def rating_sum
-    likes.pluck(:rating).sum
+    likes.sum(:rating)
   end
 end

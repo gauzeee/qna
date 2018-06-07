@@ -28,7 +28,7 @@ RSpec.shared_examples_for 'likable' do
     expect(likable.rating_sum).to eq 2
   end
 
-  it '#like_of' do
+  describe '#like_of' do
     before do
       @likable = create(model.to_s.underscore.to_sym)
       @likable.rate_up(user)
