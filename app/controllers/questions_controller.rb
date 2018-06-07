@@ -3,7 +3,6 @@ class QuestionsController < ApplicationController
 
   before_action :authenticate_user!, only: %i(new edit update create destroy rate_up rate_down rate_revoke)
   before_action :find_question, only: %i(show edit update destroy)
-  before_action :find_like, only: %i(show)
 
   def index
     @questions = Question.all
@@ -50,10 +49,6 @@ class QuestionsController < ApplicationController
   end
 
   private
-
-  def find_like
-    @like = @question.likes.find_by(user_id: current_user)
-  end
 
   def find_question
     @question = Question.find(params[:id])

@@ -1,14 +1,15 @@
 require_relative 'acceptance_helper'
 
-feature 'Like question', %q{
-  In order to show that question is good
+feature 'Like answer', %q{
+  In order to show that answer is good
   As an authenticated user
-  I'd like to be able to set like for question
+  I'd like to be able to set like for answer
 } do
 
-  given(:user) {  create(:user) }
+  given(:user) { create(:user) }
   given(:question) { create(:question) }
-  given(:user_question) { create(:question, user: user) }
+  given!(:answer) { create(:answer, question: question) }
+  given!(:user_answer) { create(:answer, question: question, user: user) }
 
   before do
     sign_in(user)
@@ -16,7 +17,7 @@ feature 'Like question', %q{
   end
 
   scenario 'user set like', js: true do
-    within('.question .rate') do
+    within(".answers .answer-#{answer.id}") do
       click_on '+'
       expect(page).to have_content '1'
       expect(page).to have_content 'Revoke my like'
@@ -24,7 +25,7 @@ feature 'Like question', %q{
   end
 
   scenario 'user set like again', js: true do
-    within('.question .rate') do
+    within(".answers .answer-#{answer.id}") do
       click_on '+'
       click_on '+'
       expect(page).to have_content '1'
@@ -32,7 +33,7 @@ feature 'Like question', %q{
   end
 
   scenario 'user revoke his like', js: true do
-    within('.question .rate') do
+    within(".answers .answer-#{answer.id}") do
       click_on '+'
       click_on 'Revoke my like'
       expect(page).to have_content '0'
@@ -40,16 +41,15 @@ feature 'Like question', %q{
     end
   end
 
-  scenario 'user set dislike', js: true do
-    within('.question .rate') do
-      click_on '-'
-      expect(page).to have_content '-1'
+    scenario 'user set dislike', js: true do
+      within(".answers .answer-#{answer.id}") do
+        click_on '-'
+        expect(page).to have_content '-1'
+      end
     end
-  end
 
-  scenario 'author of question try to set like' do
-    visit question_path(user_question)
-    within('.question .rate') do
+  scenario 'author of answer try to set like' do
+    within(".answers .answer-#{user_answer.id}") do
       expect(page).to_not have_link '+'
       expect(page).to_not have_link '-'
     end

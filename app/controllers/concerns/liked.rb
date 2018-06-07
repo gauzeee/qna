@@ -3,7 +3,6 @@ module Liked
 
   included do
     before_action :set_likable, only: %i(rate_up rate_down rate_revoke)
-    before_action :find_like, only: %i(rate_revoke)
   end
 
   def rate_up

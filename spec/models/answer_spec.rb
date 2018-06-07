@@ -9,6 +9,8 @@ RSpec.describe Answer, type: :model do
 
   it {should accept_nested_attributes_for :attachments }
 
+  it_behaves_like 'likable'
+
   describe 'update best answer' do
     let(:question) { create(:question) }
     let(:new_answer) { create(:answer, question: question) }

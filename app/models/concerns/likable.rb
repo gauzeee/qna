@@ -17,7 +17,7 @@ module Likable
     like.save
   end
 
-  def vote_of?(user)
+  def like_of?(user)
     likes.exists?(user: user)
   end
 

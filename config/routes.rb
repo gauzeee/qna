@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   end
 
   resources :questions, concerns: [:likable] do
-    resources :answers, shallow: true do
+    resources :answers,concerns: [:likable], shallow: true do
       patch :set_best, on: :member
     end
   end

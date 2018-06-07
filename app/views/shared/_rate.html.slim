@@ -7,5 +7,5 @@ div class="rate #{resource.class}-#{resource.id}"
       =<> link_to '-', polymorphic_path(resource, action: :rate_down), method: :post, remote: true, data: { type: :json }
   - if current_user && !current_user.author_of?(resource)
     =<> link_to 'Revoke my like', polymorphic_path(resource, action: :rate_revoke),
-            class: "revoke-link #{'revoke-link-hider' unless resource.vote_of?(current_user)}",
+            class: "revoke-link #{'revoke-link-hider' unless resource.like_of?(current_user)}",
             method: :delete, remote: true, data: { type: :json }
