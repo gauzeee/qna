@@ -1,7 +1,7 @@
 class QuestionsController < ApplicationController
   include Liked
 
-  before_action :authenticate_user!, only: %i(new edit update create destroy)
+  before_action :authenticate_user!, only: %i(new edit update create destroy rate_up rate_down rate_revoke)
   before_action :find_question, only: %i(show edit update destroy)
   before_action :find_like, only: %i(show)
 

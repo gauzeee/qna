@@ -29,8 +29,13 @@ RSpec.shared_examples 'liked' do
         expect { post :rate_up, params: { id: user_likable } }.to_not change(Like, :count)
       end
     end
-  end
 
+    context 'Non-authenticated user delete resource' do
+      it 'try to save new like' do
+        expect { post :rate_up, params: { id: likable } }.to_not change(Like, :count)
+      end
+    end
+  end
 
   describe 'POST #rate_down' do
     context 'current user is not author of resource' do
@@ -54,6 +59,12 @@ RSpec.shared_examples 'liked' do
       let!(:user_likable) { create(model.to_s.underscore.to_sym, user: @user) }
       it 'try to save new like' do
         expect { post :rate_down, params: { id: user_likable } }.to_not change(Like, :count)
+      end
+    end
+
+    context 'Non-authenticated user' do
+      it 'try to save new like' do
+        expect { post :rate_down, params: { id: likable } }.to_not change(Like, :count)
       end
     end
   end
