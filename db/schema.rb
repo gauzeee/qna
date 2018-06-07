@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_04_101520) do
+ActiveRecord::Schema.define(version: 2018_06_07_074940) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,18 @@ ActiveRecord::Schema.define(version: 2018_06_04_101520) do
     t.integer "attachable_id"
     t.string "attachable_type"
     t.index ["attachable_id", "attachable_type"], name: "index_attachments_on_attachable_id_and_attachable_type"
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.integer "rating", default: 0, null: false
+    t.string "likable_type"
+    t.bigint "likable_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["likable_id", "likable_type", "user_id"], name: "index_likes_on_likable_id_and_likable_type_and_user_id", unique: true
+    t.index ["likable_type", "likable_id"], name: "index_likes_on_likable_type_and_likable_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
   create_table "questions", force: :cascade do |t|

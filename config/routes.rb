@@ -3,10 +3,19 @@ Rails.application.routes.draw do
   root to: "questions#index"
   get 'attachments/destroy'
 
-  resources :questions do
+  concern :likable do
+    member do
+      post :rate_up
+      post :rate_down
+      delete :rate_revoke
+    end
+  end
+
+  resources :questions, concerns: [:likable] do
     resources :answers, shallow: true do
       patch :set_best, on: :member
     end
   end
+
   resources :attachments
 end

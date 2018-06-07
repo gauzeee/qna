@@ -1,4 +1,6 @@
 class Question < ApplicationRecord
+  include Likable
+
   has_many :answers, dependent: :destroy
   has_many :attachments, dependent: :destroy, as: :attachable
 

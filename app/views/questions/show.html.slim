@@ -1,6 +1,16 @@
 h1.question-title = @question.title
 .question
   p.question-body = @question.body
+  .rating
+    = @question.likes.pluck(:rating).sum
+    |
+    - unless current_user && current_user.author_of?(@question)
+      = link_to '+', rate_up_question_path(@question), method: :post
+      |/
+      = link_to '-', rate_down_question_path(@question), method: :post
+      br
+      - if @like && current_user.author_of?(@like)
+        = link_to 'Revoke my like', rate_revoke_question_path(@question), method: :delete
   p Attachments:
   ul
     - @question.attachments.each do |a|
@@ -16,6 +26,8 @@ h1.question-title = @question.title
   - if current_user&.author_of?(@question)
     =<> link_to 'Edit', '', class: 'edit-question-link'
     =<> link_to 'Delete question', question_path(@question), method: :delete
+
+
 
 h2 Best Answer
 .best-answer
