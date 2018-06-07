@@ -16,4 +16,12 @@ module Likable
     like.user = user
     like.save
   end
+
+  def vote_of?(user)
+    likes.exists?(user: user)
+  end
+
+  def rating_sum
+    likes.pluck(:rating).sum
+  end
 end

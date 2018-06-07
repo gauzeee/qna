@@ -9,24 +9,28 @@ module Liked
   def rate_up
     unless current_user.author_of?(@likable)
       @likable.rate_up(current_user)
-      redirect_to polymorphic_path(@likable)
+      render_json
     end
   end
 
   def rate_down
     unless current_user.author_of?(@likable)
       @likable.rate_down(current_user)
-      redirect_to polymorphic_path(@likable)
+      render_json
     end
   end
 
   def rate_revoke
     @like = @likable.likes.find_by(user_id: current_user)
     @like.destroy if @like
-    redirect_to polymorphic_path(@likable)
+    render_json
   end
 
   private
+
+  def render_json
+    render json: { rating: @likable.likes.pluck(:rating).sum, klass: @likable.class.to_s, id: @likable.id }
+  end
 
   def model_klass
     controller_name.classify.constantize

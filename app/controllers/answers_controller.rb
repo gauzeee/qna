@@ -1,5 +1,7 @@
 class AnswersController < ApplicationController
-  before_action :authenticate_user!, only: %i(update create destroy set_best)
+  include Liked
+
+  before_action :authenticate_user!, only: %i(update create destroy set_best rate_up rate_down rate_revoke)
   before_action :find_question, only: %i(create)
   before_action :find_answer, only: %i(update destroy set_best)
 
