@@ -2,3 +2,18 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .edit-question-form { display: none; }
+.question-item {
+  text-align: center;
+  height: 50px;
+  border: 1px solid grey;
+  padding-top: 10px;
+  margin-top: 10px;
+}
+.questions-list{
+  text-align: center;
+}
+.ask-link-box {
+  position: fixed;
+  top: 100px;
+  right: 50px;
+}

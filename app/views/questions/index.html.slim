@@ -1,14 +1,11 @@
+.questions-list
+  h2 Questions
+  .row
+    .col-md-2
+    .col-md-8.question-list-inside
+      = render @questions
+    .col-md-2
+.ask-link-box
+  .ask-link= link_to 'Ask question', new_question_path, class: 'btn btn-info mt-5'
 
-.row
-  .questions-index
-h2 Questions
-table
-  thead
-    tr
-      th Title
-      th Body
-  tbody
-    = render @questions
-
-p= link_to 'Ask question', new_question_path, class: 'btn btn-info mt-5'
 

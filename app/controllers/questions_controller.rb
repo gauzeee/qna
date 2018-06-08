@@ -4,6 +4,8 @@ class QuestionsController < ApplicationController
   before_action :authenticate_user!, only: %i(new edit update create destroy rate_up rate_down rate_revoke)
   before_action :find_question, only: %i(show edit update destroy)
 
+  after_action :publish_question, only: [:create]
+
   def index
     @questions = Question.all
   end
@@ -26,7 +28,7 @@ class QuestionsController < ApplicationController
     @question = current_user.questions.build(question_params)
 
     if @question.save
-      flash[:notice] = 'Your question successfully created.'
+      flash[:success] = 'Your question successfully created.'
       redirect_to @question
     else
       render :new
@@ -40,7 +42,7 @@ class QuestionsController < ApplicationController
   def destroy
     if current_user.author_of?(@question)
       @question.destroy
-      flash[:notice] = 'Question successfully deleted.'
+      flash[:success] = 'Question successfully deleted.'
       redirect_to questions_path
     else
       flash[:alert] = 'Only author can delete this question.'
@@ -49,6 +51,17 @@ class QuestionsController < ApplicationController
   end
 
   private
+
+  def publish_question
+    return if @question.errors.any?
+    ActionCable.server.broadcast(
+      'questions',
+      ApplicationController.render(
+        partial: 'questions/question',
+        locals: { question: @question }
+        )
+      )
+  end
 
   def find_question
     @question = Question.find(params[:id])

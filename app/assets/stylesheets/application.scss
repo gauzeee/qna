@@ -4,3 +4,17 @@
 @import "attachments";
 @import "bootstrap";
 .revoke-link-hider { display: none }
+.flash-massages {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 50px;
+  width: 80%;
+  text-align: center;
+  margin-left: 10%;
+  border-radius: 15px;
+}
+.flash {
+  border: 2px solid;
+  padding: 10px;
+  border-radius: 5px;
+}

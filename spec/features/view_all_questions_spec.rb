@@ -11,7 +11,5 @@ feature 'User can view questions list', %q{
 
     expect(page).to have_content questions.first.title
     expect(page).to have_content questions.last.title
-    expect(page).to have_content questions.first.body
-    expect(page).to have_content questions.last.body
   end
 end

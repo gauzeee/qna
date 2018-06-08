@@ -35,6 +35,33 @@ feature 'Create question', %q{
     expect(page).to have_content "Body can't be blank"
     end
 
+  fcontext 'multiple sessions' do
+    scenario 'question appears on another users page', js: true do
+      Capybara.using_session('user') do
+        sign_in(user)
+        visit questions_path
+      end
+
+      Capybara.using_session('guest') do
+        visit questions_path
+      end
+
+      Capybara.using_session('user') do
+        click_on 'Ask question'
+        click_on 'Remove'
+        fill_in 'Title', with: 'Test question'
+        fill_in 'Body', with: 'Body text'
+        save_and_open_page
+        click_on 'Save'
+      end
+
+      Capybara.using_session('guest') do
+        expect(page).to have_content 'Test question'
+      end
+    end
+  end
+
+
   scenario 'Non-authenticated user try to create question' do
     visit questions_path
     click_on 'Ask question'
