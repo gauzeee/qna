@@ -1,11 +1,11 @@
 div class="rate #{resource.class}-#{resource.id}"
   span.up-down
     - if current_user && !current_user.author_of?(resource)
-      =<> link_to '+', polymorphic_path(resource, action: :rate_up), method: :post, remote: true, data: { type: :json }
+      =<> link_to '+', polymorphic_path(resource, action: :rate_up), method: :post, remote: true, data: { type: :json }, class: 'btn btn-success'
     span.rating =<> resource.rating_sum
     - if current_user && !current_user.author_of?(resource)
-      =<> link_to '-', polymorphic_path(resource, action: :rate_down), method: :post, remote: true, data: { type: :json }
+      =<> link_to '-', polymorphic_path(resource, action: :rate_down), method: :post, remote: true, data: { type: :json }, class: 'btn btn-danger'
   - if current_user && !current_user.author_of?(resource)
     =<> link_to 'Revoke my like', polymorphic_path(resource, action: :rate_revoke),
-            class: "revoke-link #{'revoke-link-hider' unless resource.like_of?(current_user)}",
+            class: "btn btn-info revoke-link #{'revoke-link-hider' unless resource.like_of?(current_user)}",
             method: :delete, remote: true, data: { type: :json }

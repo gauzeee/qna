@@ -2,10 +2,10 @@
   = render 'shared/errors', resource: @question
 
   = f.label :title
-  = f.text_field :title
+  = f.text_field :title, class: 'form-control'
 
   = f.label :body
-  = f.text_area :body
+  = f.text_area :body, class: 'form-control'
 
   p Attachments:
   = f.fields_for :attachments do |a|
@@ -13,4 +13,4 @@
   .links
     = link_to_add_association 'Add file', f, :attachments
 
-  = f.submit 'Save'
+  = f.submit 'Save', class: 'btn btn-info mb-2'

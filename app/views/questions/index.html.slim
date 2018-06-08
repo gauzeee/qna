@@ -1,4 +1,7 @@
-h3 Questions
+
+.row
+  .questions-index
+h2 Questions
 table
   thead
     tr
@@ -7,5 +10,5 @@ table
   tbody
     = render @questions
 
-p= link_to 'Ask question', new_question_path
+p= link_to 'Ask question', new_question_path, class: 'btn btn-info mt-5'
 

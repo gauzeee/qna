@@ -9,6 +9,7 @@ editAnswerListener = ->
     $('form#edit-answer-' + answer_id).show()
 
   $('.answers').on 'click', '.edit-answer-link', editAnswer
+  $('.best-answer').on 'click', '.edit-answer-link', editAnswer
   $('.answers').on 'click', '.set-best-answer', bestAnswer
 
 $(document).ready(editAnswerListener)

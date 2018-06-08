@@ -1,37 +1,41 @@
-h1.question-title = @question.title
 .question
-  p.question-body = @question.body
+  .row
+    .col-md-6
+      h1.question-title = @question.title
+      p.question-body = @question.body
+    .col-md-6
+      h5.mt-5 Rating:
+      = render 'shared/rate', resource: @question
 
-  = render 'shared/rate', resource: @question
-
-  p Attachments:
-  ul
-    - @question.attachments.each do |a|
-      li id="attachment-#{a.id}"
-        = link_to a.file.identifier, a.file.url
-        br
-        - if current_user && current_user.author_of?(@question)
-          = link_to 'Delete file', attachment_path(a), method: :delete, remote: true
+      p Attachments:
+      ul
+        - @question.attachments.each do |a|
+          li id="attachment-#{a.id}"
+            = link_to a.file.identifier, a.file.url
+            br
+            - if current_user && current_user.author_of?(@question)
+              = link_to 'Delete file', attachment_path(a), method: :delete, remote: true, class: 'btn btn-danger'
 
   .errors
   .edit-question-form = render 'form'
 
   - if current_user&.author_of?(@question)
-    =<> link_to 'Edit', '', class: 'edit-question-link'
-    =<> link_to 'Delete question', question_path(@question), method: :delete
+    =<> link_to 'Edit', '', class: 'edit-question-link btn btn-info'
+    =<> link_to 'Delete question', question_path(@question), method: :delete, class: 'btn btn-info'
 
 
 
+.row
+  .col-md-6
+    h2.mt-5 Best Answer
+    .best-answer
+      = render @question.answers.current_best
 
-h2 Best Answer
-.best-answer
-  = render @question.answers.current_best
+    h2.mt-5 Answers
+    .answers
+      = render @question.answers.not_best
 
-h2 Answers
-.answers
-  = render @question.answers.not_best
-
-
-h2 New answer
-.answer-form
-  = render 'answers/form'
+  .col-md-6
+    h2.mt-5 New answer
+    .answer-form
+      = render 'answers/form'
