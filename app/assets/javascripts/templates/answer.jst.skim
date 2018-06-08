@@ -1,0 +1,24 @@
+div class="answer-#{@answer.id}"
+  div class="row"
+    div class="col-md-6 mt-4"
+      = @answer.body
+    div class="col-md-6"
+      div class="rate Answer-#{@answer.id}"
+        span.up-down
+          - if (gon.current_user) && (gon.current_user.id != @answer.user_id)
+            a class="btn btn-success" data-type="json" data-remote="true" rel="nofollow" data-method="post" href="/answers/#{@answer.id}/rate_up" +
+          span.rating =<> @rating
+          - if (gon.current_user) && (gon.current_user.id != @answer.user_id)
+            a class="btn btn-danger" data-type="json" data-remote="true" rel="nofollow" data-method="post" href="/answers/#{@answer.id}/rate_down" -
+          - if (gon.current_user) && (gon.current_user.id != @answer.user_id)
+            a class="revoke-link revoke-link-hider btn btn-info" data-type="json" data-remote="true" rel="nofollow" data-method="delete" href="/answers/#{@answer.id}/rate_revoke" Revoke my like
+  div class="row"
+    ul
+      - for a in @attachments
+        li id="attachment-#{a.id}"
+          a href=a.file_url #{a.file_name}
+  div class="row"
+    - if (gon.current_user) && (gon.current_user.id == @question.user_id)
+      a class="set-best-answer btn btn-info mr-2" data-remote="true" rel="nofollow" data-method="patch" href="/answers/#{@answer.id}/set_best" Set Best
+
+

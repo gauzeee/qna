@@ -1,5 +1,5 @@
 require 'rails_helper'
-
+Capybara.server = :puma
 Capybara.javascript_driver = :webkit
 RSpec.configure do |config|
 
