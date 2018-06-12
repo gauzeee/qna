@@ -37,5 +37,8 @@
 
   .col-md-6
     h2.mt-5 New answer
-    .answer-form
-      = render 'answers/form'
+    - if user_signed_in?
+      .answer-form
+        = render 'answers/form'
+    - unless user_signed_in?
+      p If you want to add new answer sign in or registr.
