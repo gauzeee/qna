@@ -3,38 +3,29 @@ class QuestionsController < ApplicationController
 
   before_action :authenticate_user!, only: %i(new edit update create destroy rate_up rate_down rate_revoke)
   before_action :find_question, only: %i(show edit update destroy)
+  before_action :create_answer, only: :show
 
   after_action :publish_question, only: [:create]
 
   def index
-    @questions = Question.all
+    respond_with(@questions = Question.all)
   end
 
   def show
-    @answer = Answer.new
-    @answers = Answer.all
-    @answer.attachments.build
     gon.current_user = current_user
-    @comment = Comment.new
+    @answers = Answer.all
+    respond_with @question
   end
 
   def new
-    @question = current_user.questions.build
-    @question.attachments.build
+    respond_with(@question = current_user.questions.build)
   end
 
   def edit
   end
 
   def create
-    @question = current_user.questions.build(question_params)
-
-    if @question.save
-      flash[:success] = 'Your question successfully created.'
-      redirect_to @question
-    else
-      render :new
-    end
+    respond_with(@question = current_user.questions.create(question_params))
   end
 
   def update
@@ -42,14 +33,8 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    if current_user.author_of?(@question)
-      @question.destroy
-      flash[:success] = 'Question successfully deleted.'
-      redirect_to questions_path
-    else
-      flash[:alert] = 'Only author can delete this question.'
-      redirect_to question_path(@question)
-    end
+    @question.destroy if current_user.author_of?(@question)
+    respond_with @question
   end
 
   private
@@ -63,6 +48,10 @@ class QuestionsController < ApplicationController
         locals: { question: @question }
         )
       )
+  end
+
+  def create_answer
+    @answer = Answer.new
   end
 
   def find_question

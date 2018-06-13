@@ -33,7 +33,7 @@
     = render 'shared/errors', resource: answer
   = f.label :body
   = f.text_area :body, class: 'form-control mt-2'
-  = f.fields_for :attachments do |a|
+  = f.fields_for :attachments, @answer.attachments.build do |a|
     = render 'attachment_fields', f: a
   .links
     = link_to_add_association 'Add file', f, :attachments

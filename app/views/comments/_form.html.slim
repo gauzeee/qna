@@ -1,6 +1,6 @@
-=form_with model: [resource, @comment], class: 'comment-form', id: "comment-#{resource.class.to_s}-#{resource.id}" do |f|
+=form_with model: [resource, Comment.new], class: 'comment-form', id: "comment-#{resource.class.to_s}-#{resource.id}" do |f|
   .new-comment-errors
-    = render 'shared/errors', resource: @comment
+    = render 'shared/errors', resource: Comment.new
 
   = f.label :body, 'New commet'
   = f.text_area :body, class: 'form-control'
