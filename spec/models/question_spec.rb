@@ -11,6 +11,7 @@ RSpec.describe Question, type: :model do
   it { should accept_nested_attributes_for :attachments }
 
   it_behaves_like 'likable'
+  it_behaves_like 'commentable'
 
 
   describe 'check best answer' do

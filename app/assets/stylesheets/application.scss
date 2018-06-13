@@ -2,6 +2,7 @@
 @import "likes";
 @import "questions";
 @import "attachments";
+@import "comments";
 @import "bootstrap";
 .revoke-link-hider { display: none }
 .flash-massages {
@@ -18,3 +19,4 @@
   padding: 10px;
   border-radius: 5px;
 }
+

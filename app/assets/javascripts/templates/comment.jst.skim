@@ -1,0 +1,6 @@
+div class="comment"
+  div class="comment-body"
+    = @comment.body
+  div class="comment-by"
+    span by:
+    = @comment_user_email

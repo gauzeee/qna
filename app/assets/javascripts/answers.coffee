@@ -1,9 +1,3 @@
-$(document).bind 'ajax:error', (e) ->
-    [data, status, xhr] = e.detail;
-    document.location = '/users/sign_in' if xhr.status == 401
-    alert 'Sign in before'
-
-
 editAnswerListener = ->
   bestAnswer = (e) ->
     e.preventDefault();

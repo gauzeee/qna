@@ -48,7 +48,6 @@ feature 'Create question', %q{
 
       Capybara.using_session('user') do
         click_on 'Ask question'
-        click_on 'Remove'
         fill_in 'Title', with: 'Test question'
         fill_in 'Body', with: 'Body text'
         save_and_open_page

@@ -1,6 +1,7 @@
 <% if @answer.errors.present? %>
-  $('.errors').html('<%= j render 'shared/errors', resource: @answer %>')
+  $('.edit-answer-errors').html('<%= j render 'shared/errors', resource: @answer %>')
 <% else %>
+  $('.edit-answer-errors').html('')
   $('.answer-<%= @answer.id %>').html('<%= j render @answer %>')
   $('form#edit-answer-<%= @answer.id %>').hide()
 <% end %>

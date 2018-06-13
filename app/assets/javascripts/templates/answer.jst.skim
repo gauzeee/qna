@@ -1,7 +1,7 @@
-div class="answer-#{@answer.id}"
+div class="answer answer-#{@answer.id}"
   div class="row"
     div class="col-md-6 mt-4"
-      = @answer.body
+      h5= @answer.body
     div class="col-md-6"
       div class="rate Answer-#{@answer.id}"
         span.up-down
@@ -17,6 +17,9 @@ div class="answer-#{@answer.id}"
       - for a in @attachments
         li id="attachment-#{a.id}"
           a href=a.file_url #{a.file_name}
+  div class="row"
+    div class="comments col-12"
+      h4 Comments:
   div class="row"
     - if (gon.current_user) && (gon.current_user.id == @question.user_id)
       a class="set-best-answer btn btn-info mr-2" data-remote="true" rel="nofollow" data-method="patch" href="/answers/#{@answer.id}/set_best" Set Best

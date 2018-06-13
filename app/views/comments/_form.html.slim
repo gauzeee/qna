@@ -1,0 +1,8 @@
+=form_with model: [resource, @comment], class: 'comment-form', id: "comment-#{resource.class.to_s}-#{resource.id}" do |f|
+  .new-comment-errors
+    = render 'shared/errors', resource: @comment
+
+  = f.label :body, 'New commet'
+  = f.text_area :body, class: 'form-control'
+
+  = f.submit

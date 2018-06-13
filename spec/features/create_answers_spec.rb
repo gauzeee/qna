@@ -34,7 +34,7 @@ feature 'User create answers for question', %q{
   scenario 'Non-authenticated user try to create new answer' do
     new_answer(question)
 
-    expect(page).to have_content 'You need to sign in or sign up before continuing.'
+    expect(page).to_not have_content 'Your answer'
   end
 
 end

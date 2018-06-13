@@ -1,4 +1,4 @@
-= content_tag :div, class: 'question', data: { question_id: @question.id }
+= content_tag :div, class: "question question-#{@question.id}",id: "question-#{@question.id}", data: { question_id: @question.id }
   .row.justisy-content-center
     .col-md-6
       h1.question-title = @question.title
@@ -15,13 +15,22 @@
             br
             - if current_user && current_user.author_of?(@question)
               = link_to 'Delete file', attachment_path(a), method: :delete, remote: true, class: 'btn btn-danger'
+  .new-comment-form
+    = render 'comments/form', resource: @question
 
-  .errors
+  .question-errors
   .edit-question-form = render 'form'
 
   - if current_user&.author_of?(@question)
     =<> link_to 'Edit', '', class: 'edit-question-link btn btn-info'
     =<> link_to 'Delete question', question_path(@question), method: :delete, class: 'btn btn-info'
+  - if current_user
+    =<> link_to 'New comment', '', class: 'new-comment-link btn btn-info', data: { klass: 'Question', id: @question.id }
+
+  .row
+    .comments.col-12
+      h4 Comments:
+      = render @question.comments
 
 
 
@@ -37,8 +46,8 @@
 
   .col-md-6
     h2.mt-5 New answer
-    - if user_signed_in?
+    - if current_user
       .answer-form
         = render 'answers/form'
-    - unless user_signed_in?
+    - unless current_user
       p If you want to add new answer sign in or registr.
