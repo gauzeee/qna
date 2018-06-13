@@ -8,12 +8,12 @@ module FeaturesHelper
 
   def new_answer(question)
     visit question_path(question)
-    fill_in 'Your answer', with: 'Answer text'
+    fill_in 'answer_body', with: 'Answer text'
     click_button 'New answer'
   end
 
   def one_more_answer(question)
-    fill_in 'Your answer', with: 'One more answer'
+    fill_in 'answer_body', with: 'One more answer'
     click_button 'New answer'
   end
 

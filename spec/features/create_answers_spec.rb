@@ -32,9 +32,8 @@ feature 'User create answers for question', %q{
   end
 
   scenario 'Non-authenticated user try to create new answer' do
-    new_answer(question)
-
-    expect(page).to_not have_content 'Your answer'
+    visit question_path(question)
+    expect(page).to have_content 'If you want to add new answer sign in or registr.'
   end
 
 end

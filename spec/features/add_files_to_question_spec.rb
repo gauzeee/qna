@@ -27,6 +27,7 @@ feature 'Add files to question', %q{
     fill_in 'Title', with: 'Test question'
     fill_in 'Body', with: 'Body text'
     click_on 'Add file'
+    click_on 'Add file'
 
     inputs = all('input[type="file"]')
     inputs[0].set("#{Rails.root}/spec/rails_helper.rb")

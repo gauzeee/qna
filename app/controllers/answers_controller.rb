@@ -24,6 +24,7 @@ class AnswersController < ApplicationController
 
   def set_best
     @answer.update_best if current_user.author_of?(@answer.question)
+    @comment = Comment.new
   end
 
   private
