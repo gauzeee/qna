@@ -25,6 +25,11 @@ gem 'bootstrap'
 gem 'gon'
 gem 'skim'
 gem 'responders', '~> 2.0'
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'omniauth-vkontakte'
+gem 'omniauth-twitter'
+gem 'omniauth-github'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
@@ -53,6 +58,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'rails-controller-testing'
   gem 'capybara-webkit'
+  gem 'letter_opener'
 end
 
 group :development do
@@ -72,6 +78,7 @@ group :test do
   gem 'shoulda-matchers'
   gem 'launchy'
   gem 'database_cleaner'
+  gem 'capybara-email'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

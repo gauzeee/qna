@@ -1,0 +1,10 @@
+.set-email
+  h2 Enter your email to continue
+  .row
+    .col-md-3.col-sm-12
+    .col-md-6.col-sm-12.set-email-form.mt-5
+      = form_tag new_email_path do
+        .set-email-form-errors
+          = render 'shared/errors', resource: current_user
+        = text_field_tag :email
+        = submit_tag 'Set my email', class: 'btn btn-info mt-3'

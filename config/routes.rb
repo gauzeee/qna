@@ -1,13 +1,22 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
   root to: "questions#index"
   get 'attachments/destroy'
+  get 'users/confirmation'
+  post 'new_email' => "users#confirm_email"
 
   concern :likable do
     member do
       post :rate_up
       post :rate_down
       delete :rate_revoke
+    end
+  end
+
+  resources :users do
+    member do
+      get :set_email
+      get :update_email
     end
   end
 
