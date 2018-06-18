@@ -3,8 +3,8 @@
   .row
     .col-md-3.col-sm-12
     .col-md-6.col-sm-12.set-email-form.mt-5
-      = form_tag new_email_path do
+      = form_with model: current_user, url: confirm_email_user_path(current_user), local: true do |f|
         .set-email-form-errors
           = render 'shared/errors', resource: current_user
-        = text_field_tag :email
-        = submit_tag 'Set my email', class: 'btn btn-info mt-3'
+        = f.text_field :email, class: 'form-control'
+        = f.submit 'Set my email', class: 'btn btn-info mt-3'

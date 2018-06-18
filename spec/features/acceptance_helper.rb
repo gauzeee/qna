@@ -6,6 +6,7 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = false
 
   config.include FeaturesHelper, type: :feature
+  config.include OmniauthMacros, type: :feature
 
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
@@ -27,5 +28,6 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
+OmniAuth.config.test_mode = true
 
 end

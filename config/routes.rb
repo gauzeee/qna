@@ -2,8 +2,6 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
   root to: "questions#index"
   get 'attachments/destroy'
-  get 'users/confirmation'
-  post 'new_email' => "users#confirm_email"
 
   concern :likable do
     member do
@@ -16,7 +14,7 @@ Rails.application.routes.draw do
   resources :users do
     member do
       get :set_email
-      get :update_email
+      patch :confirm_email
     end
   end
 

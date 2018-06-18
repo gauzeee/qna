@@ -4,11 +4,11 @@ class User < ApplicationRecord
   has_many :likes
   has_many :authorizations, dependent: :destroy
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and
+  #  :lockable, :timeoutable and
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :omniauthable,
+         :recoverable, :rememberable, :trackable, :validatable, :confirmable, :omniauthable,
          omniauth_providers: [:vkontakte, :github, :twitter]
-  validates :email, :password, presence: true
+  validates :email, presence: true
 
   def author_of?(item)
     id == item.user_id
@@ -20,11 +20,16 @@ class User < ApplicationRecord
 
     email = auth.info[:email]
     user = User.where(email: email).first
+
     unless user
       email ||= "#{Devise.friendly_token[0, 5]}_change@me.please"
       password = Devise.friendly_token[0, 20]
-      user = User.create!(email: email, password: password, password_confirmation: password)
+      user = User.new(email: email, password: password, password_confirmation: password)
+
+      user.skip_confirmation!
+      user.save
     end
+
     user.create_authorization(auth)
     user
   end
