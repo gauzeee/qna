@@ -84,4 +84,17 @@ RSpec.describe User do
       end
     end
   end
+
+  describe '#no_email?' do
+    let(:user) { create(:user) }
+    let(:temp_user) { create(:user, email: 'change@me.please') }
+
+    it 'has a real email' do
+      expect(user.no_email?).to be_falsey
+    end
+
+    it 'need to change email' do
+      expect(temp_user.no_email?).to be_truthy
+    end
+  end
 end

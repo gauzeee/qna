@@ -15,12 +15,7 @@ class UsersController < ApplicationController
     end
   end
 
-
   private
-
-  def user_params
-    params.require(:user).permit(:email)
-  end
 
   def check_email
     unless current_user.no_email?
