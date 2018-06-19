@@ -14,7 +14,7 @@
             li id="attachment-#{a.id}"
               = link_to a.file.identifier, a.file.url
               br
-              - if current_user && current_user.author_of?(@question)
+              - if can?(:destroy, @attachment)
                 = link_to 'Delete file', attachment_path(a), method: :delete, remote: true, class: 'btn btn-danger'
   .new-comment-form
     = render 'comments/form', resource: @question
@@ -22,10 +22,11 @@
   .question-errors
   .edit-question-form = render 'form'
 
-  - if current_user&.author_of?(@question)
+  - if can?(:update, @question)
     =<> link_to 'Edit', '', class: 'edit-question-link btn btn-info'
+  - if can?(:destroy, @question)
     =<> link_to 'Delete question', question_path(@question), method: :delete, class: 'btn btn-info'
-  - if current_user
+  - if can?(:create, Comment)
     =<> link_to 'New comment', '', class: 'new-comment-link btn btn-info', data: { klass: 'Question', id: @question.id }
 
   .row
@@ -47,8 +48,8 @@
 
   .col-md-6
     h2.mt-5 New answer
-    - if current_user
+    - if can?(:create, Answer)
       .answer-form
         = render 'answers/form'
-    - unless current_user
+    - unless can?(:create, Answer)
       p If you want to add new answer sign in or registr.

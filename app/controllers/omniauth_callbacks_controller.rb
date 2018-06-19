@@ -3,10 +3,6 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     call('Vkontakte')
   end
 
-  def twitter
-    call('Twitter')
-  end
-
   def github
     call('GitHub')
   end

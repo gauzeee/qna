@@ -8,6 +8,8 @@ class AnswersController < ApplicationController
 
   respond_to :js
 
+  authorize_resource
+
   def create
     @answer = @question.answers.build(answer_params)
     @answer.user = current_user
@@ -15,17 +17,17 @@ class AnswersController < ApplicationController
   end
 
   def update
-    @answer.update(answer_params) if current_user.author_of?(@answer)
+    @answer.update(answer_params)
     respond_with @answer
   end
 
   def destroy
-    @answer.destroy if current_user.author_of?(@answer)
+    @answer.destroy
     respond_with @answer
   end
 
   def set_best
-    @answer.update_best if current_user.author_of?(@answer.question)
+    @answer.update_best
     respond_with @answer
   end
 

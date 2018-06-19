@@ -9,7 +9,6 @@ class ApplicationController < ActionController::Base
 
   def gon_user
     gon.user_id = current_user.id if user_signed_in?
-
     gon.is_user_signed_in = user_signed_in?
   end
 
@@ -18,5 +17,9 @@ class ApplicationController < ActionController::Base
       return if ['confirmations', 'sessions'].include?(controller_name)
       redirect_to set_email_user_path(current_user)
     end
+  end
+
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_url, alert: exception.message
   end
 end

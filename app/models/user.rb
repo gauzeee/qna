@@ -7,7 +7,7 @@ class User < ApplicationRecord
   #  :lockable, :timeoutable and
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable, :omniauthable,
-         omniauth_providers: [:vkontakte, :github, :twitter]
+         omniauth_providers: [:vkontakte, :github]
   validates :email, presence: true
 
   def author_of?(item)

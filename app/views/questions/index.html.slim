@@ -5,7 +5,9 @@
     .col-md-8.question-list-inside
       = render @questions
     .col-md-2
+
 .ask-link-box
+- if can?(:create, Question)
   .ask-link= link_to 'Ask question', new_question_path, class: 'btn btn-info mt-5'
 
 

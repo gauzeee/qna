@@ -256,7 +256,6 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  config.omniauth :twitter, Rails.application.secrets.twitter_app_id, Rails.application.secrets.twitter_app_secret, scope: [:email]
   config.omniauth :vkontakte, Rails.application.secrets.vkontakte_app_id, Rails.application.secrets.vkontakte_app_secret, scope: [:email]
   config.omniauth :github, Rails.application.secrets.github_app_id, Rails.application.secrets.github_app_secret, scope: [:email]
 
