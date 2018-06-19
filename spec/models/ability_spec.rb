@@ -29,6 +29,10 @@ describe Ability do
     let(:other_answer) { create :answer, question: user_question, user: other }
     let(:attachment) { create :attachment, attachable: user_question }
     let(:other_attachment) { create :attachment, attachable: other_question }
+    let!(:like) { create(:like, likable: question, user: user) }
+    let!(:like_answer) { create(:like, likable: other_answer, user: user) }
+    let!(:other_like) { create(:like, likable: other_question, user: other) }
+    let!(:other_like_answer) { create(:like, likable: user_answer, user: other) }
 
     it { should be_able_to :read, :all }
     it { should_not be_able_to :manage, :all }
@@ -54,10 +58,16 @@ describe Ability do
     it { should_not be_able_to :destroy, other_answer, user: user }
     it { should_not be_able_to :destroy, other_attachment, user: user }
 
-    it { should be_able_to [:rate_up, :rate_down, :rate_revoke], other_question, user: user }
-    it { should be_able_to [:rate_up, :rate_down, :rate_revoke], other_answer, user: user }
-    it { should_not be_able_to [:rate_up, :rate_down, :rate_revoke], user_question, user: user }
-    it { should_not be_able_to [:rate_up, :rate_down, :rate_revoke], user_answer, user: user }
+    it { should be_able_to [:rate_up, :rate_down], other_question, user: user }
+    it { should be_able_to [:rate_up, :rate_down], other_answer, user: user }
+    it { should_not be_able_to [:rate_up, :rate_down], user_question, user: user }
+    it { should_not be_able_to [:rate_up, :rate_down], user_answer, user: user }
+
+    it { should be_able_to :rate_revoke, question, user: user }
+    it { should_not be_able_to :rate_revoke, other_question, user: user }
+
+    it { should be_able_to :rate_revoke, other_answer, user: user }
+    it { should_not be_able_to :rate_revoke, user_answer, user: user }
 
     it { should be_able_to :set_best, other_answer, user: user }
     it { should_not be_able_to :set_best, user_answer, user: other }

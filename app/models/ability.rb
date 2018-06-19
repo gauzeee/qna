@@ -23,10 +23,14 @@ class Ability
   def user_abilities
     guest_abilities
     can :create, [Question, Answer, Comment]
-    can :update, [Question, Answer, Comment], user: user
-    can :destroy, [Question, Answer], user: user
-    can [:rate_up, :rate_down, :rate_revoke], [Question, Answer]
-    cannot [:rate_up, :rate_down, :rate_revoke], [Question, Answer], user: user
+    can :update, [Question, Answer, Comment], user_id: user.id
+    can :destroy, [Question, Answer], user_id: user.id
+    can [:rate_up, :rate_down], [Question, Answer]
+    cannot [:rate_up, :rate_down], [Question, Answer], user_id: user.id
+
+    can :rate_revoke, [Question, Answer] do |a|
+      a.likes.find_by(user_id: user)
+    end
 
     can :destroy, Attachment do |a|
         user.author_of?(a.attachable)

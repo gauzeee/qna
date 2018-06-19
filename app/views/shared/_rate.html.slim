@@ -5,7 +5,7 @@ div class="rate #{resource.class}-#{resource.id}"
     span.rating =<> resource.rating_sum
     - if can?(:rate_down, resource)
       =<> link_to '-', polymorphic_path(resource, action: :rate_down), method: :post, remote: true, data: { type: :json }, class: 'btn btn-danger'
-  - if can?(:rate_revoke, resource)
+  - if can?(:rate_up, resource)
     =<> link_to 'Revoke my like', polymorphic_path(resource, action: :rate_revoke),
             class: "btn btn-info revoke-link #{'revoke-link-hider' unless resource.like_of?(current_user)}",
             method: :delete, remote: true, data: { type: :json }
