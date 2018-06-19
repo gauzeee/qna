@@ -6,7 +6,11 @@ $(document).on('turbolinks:load', ->
     [data, status, xhr] = e.detail;
     switch (xhr.status)
       when 403
-        $('p.alert').html('You are not authorized to access this page.')
+        $('.flash-massages').html('You are not authorized to access this page.')
+        $('.flash-massages').addClass('flash')
+        $('.flash-massages').addClass('alert-danger')
       when 401
-        $('p.alert').html('You need to sign in or sign up before continuing.')
+        $('.flash-massages').html('You need to sign in or sign up before continuing.')
+        $('.flash-massages').addClass('flash')
+        $('.flash-massages').addClass('alert-info')
 )

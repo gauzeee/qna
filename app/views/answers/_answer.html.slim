@@ -26,7 +26,7 @@
       =<> link_to 'New comment', '', class: 'new-comment-link btn btn-info', data: { klass: 'Answer', id: answer.id }
     - if can?(:update, answer)
       =<> link_to 'Edit', '', class: 'edit-answer-link btn btn-info mr-2', data: { answer_id: answer.id }
-    - if can?(:read, answer)
+    - if can?(:destroy, answer)
       =<> link_to 'Delete answer', answer_path(answer), method: :delete, remote: true, class: 'btn btn-info'
 
 =form_with model: answer, class: 'edit_answer', html: { id: "edit-answer-#{answer.id}" } do |f|
