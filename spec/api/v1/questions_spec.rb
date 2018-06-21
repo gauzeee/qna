@@ -152,6 +152,11 @@ describe 'Questions API' do
           expect { post "/api/v1/questions", params: { format: :json, question: attributes_for(:question), access_token: access_token.token } }.to change(Question, :count).by(1)
         end
 
+        it 'create new question' do
+          post "/api/v1/questions", params: { format: :json, question: attributes_for(:question), access_token: access_token.token }
+          expect(response.status).to eq 201
+        end
+
         it 'question has association with user' do
           expect { post "/api/v1/questions", params: { format: :json, question: attributes_for(:question), access_token: access_token.token } }.to change(user.questions, :count).by(1)
         end
@@ -160,6 +165,12 @@ describe 'Questions API' do
       context 'with invalid attributes' do
         it 'does not save question' do
           expect { post "/api/v1/questions", params: { format: :json, question: attributes_for(:invalid_question), access_token: access_token.token } }.to_not change(Question, :count)
+          expect(response.status).to eq 422
+        end
+
+        it 'does not create question' do
+          post "/api/v1/questions", params: { format: :json, question: attributes_for(:invalid_question), access_token: access_token.token }
+          expect(response.status).to eq 422
         end
       end
     end

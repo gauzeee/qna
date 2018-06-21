@@ -120,8 +120,13 @@ describe 'Questions API' do
       let(:access_token) { create(:access_token, resource_owner_id: user.id) }
 
       context 'with valid attributes' do
-        it 'save answer in' do
+        it 'save answer' do
           expect { post "/api/v1/questions/#{question.id}/answers", params: { format: :json, answer: attributes_for(:answer), access_token: access_token.token } }.to change(question.answers, :count).by(1)
+        end
+
+        it 'create new answer' do
+          post "/api/v1/questions/#{question.id}/answers", params: { format: :json, answer: attributes_for(:answer), access_token: access_token.token }
+          expect(response.status).to eq 201
         end
 
         it 'answer has association with user' do
@@ -132,6 +137,11 @@ describe 'Questions API' do
       context 'with invalid attributes' do
         it 'does not save answer' do
           expect { post "/api/v1/questions/#{question.id}/answers", params: { format: :json, answer: attributes_for(:invalid_answer), access_token: access_token.token } }.to_not change(Answer, :count)
+        end
+
+        it 'does not create answer' do
+          post "/api/v1/questions/#{question.id}/answers", params: { format: :json, answer: attributes_for(:invalid_answer), access_token: access_token.token }
+          expect(response.status).to eq 422
         end
       end
     end
