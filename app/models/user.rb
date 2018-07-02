@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_many :answers, dependent: :destroy
   has_many :likes
   has_many :authorizations, dependent: :destroy
+  has_many :subscriptions, dependent: :destroy
   # Include default devise modules. Others available are:
   #  :lockable, :timeoutable and
   devise :database_authenticatable, :registerable,

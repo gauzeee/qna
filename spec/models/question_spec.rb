@@ -4,6 +4,7 @@ RSpec.describe Question, type: :model do
   it { should have_many(:answers).dependent(:destroy) }
   it { should have_many(:attachments).dependent(:destroy) }
   it { should have_many(:likes).dependent(:destroy) }
+  it { should have_many(:subscriptions).dependent(:destroy) }
 
   it { should validate_presence_of :title }
   it { should validate_presence_of :body }
@@ -24,6 +25,39 @@ RSpec.describe Question, type: :model do
 
     it 'current question don`t have best answer yet' do
       expect(question).to_not be_got_best
+    end
+  end
+
+  describe 'subscriptions' do
+    let(:user) { create(:user) }
+    let(:new_user) { create(:user) }
+    let(:question) { create(:question) }
+    before { question.subscribe(user) }
+
+    context '#subscribe(user' do
+      it 'add subscriber' do
+        question.subscribe(new_user)
+
+        expect(question.subscribers).to include(new_user)
+      end
+    end
+
+    context '#unsubscribe(user)' do
+      it 'remove subscriber' do
+        question.unsubscribe(user)
+
+        expect(question.subscribers).to_not include(user)
+      end
+    end
+
+    context '#subscribed?(user)' do
+      it 'user subscriber' do
+        expect(question).to_not be_subscribed(new_user)
+      end
+
+      it 'user not subscriber' do
+        expect(question).to be_subscribed(user)
+      end
     end
   end
 end

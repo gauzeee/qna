@@ -72,5 +72,10 @@ describe Ability do
     it { should be_able_to :set_best, other_answer, user: user }
     it { should_not be_able_to :set_best, user_answer, user: other }
 
+    it { should be_able_to :create, Subscription }
+    it { should be_able_to :destroy, Subscription }
+
   end
+
+
 end

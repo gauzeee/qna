@@ -28,6 +28,11 @@
     =<> link_to 'Delete question', question_path(@question), method: :delete, class: 'btn btn-info'
   - if can?(:create, Comment)
     =<> link_to 'New comment', '', class: 'new-comment-link btn btn-info', data: { klass: 'Question', id: @question.id }
+  - if can?(:create, Subscription)
+    - if @question.subscribed?(current_user)
+      = link_to 'Unsubscribe', subscription_path(@question.subscribed?(current_user)), class: 'btn btn-danger', method: :delete
+    - else
+      = link_to 'Subscribe', question_subscriptions_path(@question), class: 'btn btn-success', method: :post
 
   .row
     .comments.col-12
