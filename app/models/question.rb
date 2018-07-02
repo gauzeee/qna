@@ -10,6 +10,8 @@ class Question < ApplicationRecord
 
   accepts_nested_attributes_for :attachments, reject_if: :all_blank, allow_destroy: true
 
+  scope :today_new, -> { where(created_at: Date.today.all_day) }
+
   def current_best_answer
     self.answers.current_best.first
   end

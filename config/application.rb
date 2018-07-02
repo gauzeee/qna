@@ -11,6 +11,7 @@ module Qna
   class Application < Rails::Application
     # Use the responders controller from the responders gem
     config.app_generators.scaffold_controller :responders_controller
+    config.time_zone = 'Moscow'
 
     Skim::Engine.default_options[:use_asset] = true
     # Initialize configuration defaults for originally generated Rails version.
@@ -22,6 +23,8 @@ module Qna
     # the framework and any gems in your application.
 
     config.action_cable.disable_request_forgery_protection = false
+
+    config.active_job.queue_adapter = :sidekiq
 
     config.generators do |g|
       g.test_framework :rspec,

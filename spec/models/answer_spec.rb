@@ -7,7 +7,7 @@ RSpec.describe Answer, type: :model do
 
   it { should validate_presence_of :body }
 
-  it {should accept_nested_attributes_for :attachments }
+  it { should accept_nested_attributes_for :attachments }
 
   it_behaves_like 'likable'
   it_behaves_like 'commentable'
