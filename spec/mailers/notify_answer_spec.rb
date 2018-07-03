@@ -4,7 +4,7 @@ RSpec.describe NotifyAnswerMailer, type: :mailer do
   let(:user) { create(:user) }
   let!(:question) { create(:question, user: user) }
   let(:answer) { create(:answer, question: question) }
-  let(:mail) { NotifyAnswerMailer.send_notification(user, question, answer) }
+  let(:mail) { NotifyAnswerMailer.send_notification(user, answer) }
 
     it "renders the headers" do
       expect(mail.to).to eq([user.email])

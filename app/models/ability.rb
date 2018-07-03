@@ -28,20 +28,20 @@ class Ability
     can [:rate_up, :rate_down], [Question, Answer]
     cannot [:rate_up, :rate_down], [Question, Answer], user_id: user.id
 
-    can :rate_revoke, [Question, Answer] do |a|
-      a.likes.find_by(user_id: user)
+    can :rate_revoke, [Question, Answer] do |resource|
+      resource.likes.find_by(user_id: user)
     end
 
-    can :destroy, Attachment do |a|
-        user.author_of?(a.attachable)
+    can :destroy, Attachment do |attachment|
+        user.author_of?(attachment.attachable)
     end
 
-    can :set_best, Answer do |a|
-        user.author_of?(a.question) && !user.author_of?(a)
+    can :set_best, Answer do |answer|
+        user.author_of?(answer.question) && !user.author_of?(answer)
     end
 
-    can :destroy, Subscription do |a|
-      a.question.subscribed?(user)
+    can :destroy, Subscription do |subscription|
+      subscription.question.subscribed?(user)
     end
   end
 end

@@ -33,6 +33,6 @@ class Question < ApplicationRecord
   end
 
   def subscribed?(user)
-    subscriptions.find_by(user: user)
+    subscriptions.exists?(user: user)
   end
 end
