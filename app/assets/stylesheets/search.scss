@@ -1,0 +1,29 @@
+// Place all the styles related to the search controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.search {
+  display: inline-block;
+  margin-right: 20px;
+  .closer {
+    color: white;
+    margin-left: 10px;
+  }
+  &-field {
+    display: inline-block;
+    width: 50%;
+  }
+  &-selector {
+    display: inline-block;
+    margin-left: 10px;
+    width: 25%;
+  }
+}
+.search-form {
+  display: none;
+}
+.search-link {
+  cursor: pointer;
+}
+

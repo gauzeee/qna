@@ -12,6 +12,7 @@ module Qna
     # Use the responders controller from the responders gem
     config.app_generators.scaffold_controller :responders_controller
     config.time_zone = 'Moscow'
+    config.encoding = "utf-8"
 
     Skim::Engine.default_options[:use_asset] = true
     # Initialize configuration defaults for originally generated Rails version.

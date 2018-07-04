@@ -32,3 +32,6 @@
 /public/uploads
 
 /config/secrets.yml
+
+config/*.sphinx.conf
+db/sphinx

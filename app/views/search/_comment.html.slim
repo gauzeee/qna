@@ -1,0 +1,9 @@
+.question-item
+  -if comment.commentable.is_a?(Answer)
+    = link_to question_path(comment.commentable.question), class: 'question' do
+      =comment.body
+      p=comment.commentable.question.title
+  -else
+    = link_to question_path(comment.commentable), class: 'question' do
+      = comment.body
+      p=comment.commentable.body

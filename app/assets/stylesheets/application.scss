@@ -5,6 +5,7 @@
 @import "comments";
 @import "bootstrap";
 @import "users";
+@import "search";
 .revoke-link-hider { display: none }
 .flash-massages {
   margin-top: 20px;
@@ -20,4 +21,11 @@
   padding: 10px;
   border-radius: 5px;
 }
-
+.user-actions {
+  display: inline-block;
+  line-hight: 50px;
+}
+.log-in-btn {
+  color: white;
+  border: 1px solid white;
+}

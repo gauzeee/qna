@@ -75,6 +75,8 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'mysql2'
+  gem 'thinking-sphinx'
 end
 
 group :test do

@@ -1,0 +1,17 @@
+- if @results.empty?
+  h2 We can`t find anything
+- else
+  - @results.each do |result|
+    .mb-3
+    - if result.is_a?(Question)
+      h6 Question:
+      = render 'questions/question', question: result
+    - if result.is_a?(User)
+      h6 User:
+      = render 'users/user', user: result
+    - if result.is_a?(Comment)
+      h6 Comment:
+      = render 'search/comment', comment: result
+    - if result.is_a?(Answer)
+      h6 Answer:
+      = render 'search/answer', answer: result

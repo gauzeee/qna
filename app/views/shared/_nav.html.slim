@@ -1,7 +1,13 @@
 nav.navbar.navbar-light.bg-info.mb3
   = link_to 'Home', root_path, class: 'navbar-brand ml-3'
-  span.navbar-text.mr-3
+  .navbar-text.mr-3
+    .search
+      .search-button
+        .search-link 🔍
+      .search-form
+        = render 'search/form'
+    .user-actions
     - if user_signed_in?
-      = link_to 'Log out', destroy_user_session_path, method: :delete
+      = link_to 'Log out', destroy_user_session_path, method: :delete, class: 'btn btn-warning'
     - else
-      = link_to 'Sign in', new_user_session_path
+      = link_to 'Sign in', new_user_session_path, class: 'btn btn-success log-in-btn'
