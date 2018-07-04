@@ -2,7 +2,15 @@ class Search < ApplicationRecord
   CATEGORIES = ['Questions', 'Answers', 'Comments', 'Users', 'All'].freeze
 
   def self.find(query, resource)
-    query = ThinkingSphinx::Query.escape(query) if query.present?
+    if query.present?
+      do_search(query, resource)
+    else
+      []
+    end
+  end
+
+  def self.do_search(query, resource)
+    query = ThinkingSphinx::Query.escape(query)
     if resource == 'All'
       ThinkingSphinx.search(query)
     else
