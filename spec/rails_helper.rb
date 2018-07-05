@@ -7,6 +7,7 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'rspec/rails'
 require 'cancan/matchers'
 require 'sidekiq/testing'
+require 'thinking_sphinx'
 
 Sidekiq::Testing.fake!
 # Add additional requires below this line. Rails is not loaded until this point!
@@ -69,4 +70,23 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+  config.before :each do |example|
+    # Configure and start Sphinx for request specs
+    if example.metadata[:type] == :request
+      ThinkingSphinx::Test.init
+      ThinkingSphinx::Test.start index: false
+    end
+
+    # Disable real-time callbacks if Sphinx isn't running
+    ThinkingSphinx::Configuration.instance.settings['real_time_callbacks'] =
+        (example.metadata[:type] == :request)
+  end
+
+  config.after(:each) do |example|
+    # Stop Sphinx and clear out data after request specs
+    if example.metadata[:type] == :request
+      ThinkingSphinx::Test.stop
+      ThinkingSphinx::Test.clear
+    end
+  end
 end

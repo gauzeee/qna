@@ -3,7 +3,7 @@ nav.navbar.navbar-light.bg-info.mb3
   .navbar-text.mr-3
     .search
       .search-button
-        .search-link 🔍
+        =link_to '🔍','' ,class: 'search-link', id: 'search-link'
       .search-form
         = render 'search/form'
     .user-actions

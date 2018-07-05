@@ -3,7 +3,7 @@ class Search < ApplicationRecord
 
   def self.find(query, resource)
     if query.present?
-      do_search(query, resource)
+      do_search(query, resource) if CATEGORIES.include?(resource)
     else
       []
     end
@@ -14,7 +14,7 @@ class Search < ApplicationRecord
     if resource == 'All'
       ThinkingSphinx.search(query)
     else
-      resource.classify.constantize.search(query)
+      ThinkingSphinx.search query, classes: [resource.classify.constantize]
     end
   end
 end
