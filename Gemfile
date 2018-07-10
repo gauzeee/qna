@@ -34,7 +34,7 @@ gem 'active_model_serializers'
 gem 'oj'
 gem 'oj_mimic_json'
 gem 'dotenv'
-gem 'dotenv-rails', require: 'dotenv/deployment'
+gem 'dotenv-rails'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
