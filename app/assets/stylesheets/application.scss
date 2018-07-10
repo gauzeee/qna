@@ -29,3 +29,14 @@
   color: white;
   border: 1px solid white;
 }
+.navbar {
+  border-left: 10px dotted black;
+  border-right: 10px dotted black;
+  &-brand {
+    color: white;
+    font-size: 30px;
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 0 10px 0 10px;
+  }
+}
