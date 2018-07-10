@@ -33,6 +33,8 @@ gem 'cancancan'
 gem 'active_model_serializers'
 gem 'oj'
 gem 'oj_mimic_json'
+gem 'dotenv'
+gem 'dotenv-deployment', require: 'dotenv/deployment'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
@@ -77,6 +79,10 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'mysql2'
   gem 'thinking-sphinx'
+  gem 'capistrano', require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-rvm', require: false
 end
 
 group :test do
