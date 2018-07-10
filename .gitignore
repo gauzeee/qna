@@ -30,6 +30,6 @@
 /config/database.yml
 
 /public/uploads
-
+.env
 config/*.sphinx.conf
 db/sphinx
