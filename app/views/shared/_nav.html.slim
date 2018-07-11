@@ -1,13 +1,15 @@
-nav.navbar.navbar-light.bg-info.mb3
-  = link_to 'QnA', root_path, class: 'navbar-brand ml-3'
-  .navbar-text.mr-3
-    .search
-      .search-button
-        =link_to '🔍','' ,class: 'search-link', id: 'search-link'
-      .search-form
-        = render 'search/form'
-    .user-actions
-    - if user_signed_in?
-      = link_to 'Log out', destroy_user_session_path, method: :delete, class: 'btn btn-warning'
-    - else
-      = link_to 'Sign in', new_user_session_path, class: 'btn btn-success log-in-btn'
+.row
+  .col-12
+    nav.navbar.navbar-light.bg-info.mb3
+      = link_to 'QnA', root_path, class: 'navbar-brand ml-3'
+      .navbar-text.mr-3
+        .search
+          .search-button
+            =link_to '🔍','' ,class: 'search-link', id: 'search-link'
+          .search-form
+            = render 'search/form'
+        .user-actions
+        - if user_signed_in?
+          = link_to 'Log out', destroy_user_session_path, method: :delete, class: 'btn btn-warning'
+        - else
+          = link_to 'Sign in', new_user_session_path, class: 'btn btn-success log-in-btn'
