@@ -440,6 +440,7 @@ DEPENDENCIES
   gon
   jbuilder (~> 2.5)
   jquery-rails
+  json
   json_spec
   launchy
   letter_opener
