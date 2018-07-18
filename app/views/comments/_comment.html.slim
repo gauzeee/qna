@@ -1,6 +1,7 @@
 =content_tag :div, class: 'comment'
-  .comment-body
-    = comment.body
-  .comment-by
-    span by:
-    = comment.user.email
+  - cache comment do
+    .comment-body
+      = comment.body
+    .comment-by
+      span by:
+      = comment.user.email

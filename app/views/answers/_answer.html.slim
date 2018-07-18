@@ -2,23 +2,25 @@
   - if answer.persisted?
   .row
     .col-md-6.mt-2
+    - cache answer do
       h5= answer.body
     .col-md-6= render 'shared/rate', resource: answer
 
   .row
     ul
       - answer.attachments.each do |a|
-        li id="attachment-#{a.id}"
-          = link_to a.file.identifier, a.file.url
-          br
-          - if can?(:update, answer)
-            = link_to 'Delete file', attachment_path(a), method: :delete, remote: true, class: 'btn btn-danger'
+        - cache attachment do
+          li id="attachment-#{a.id}"
+            = link_to a.file.identifier, a.file.url
+            br
+            - if can?(:update, answer)
+              = link_to 'Delete file', attachment_path(a), method: :delete, remote: true, class: 'btn btn-danger'
   .row
     .col-12= render 'comments/form', resource: answer
   .row
     .comments.col-12
       h4 Comments:
-      = render answer.comments
+      = render partial: "comments/comment", collection: answer.comments
   .row
     - if can?(:update, @question)
       =<> link_to 'Set Best', set_best_answer_path(answer), class: 'set-best-answer btn btn-info mr-2', method: :patch, remote: true, data: { answer_id: answer.id }
