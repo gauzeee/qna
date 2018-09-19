@@ -1,8 +1,9 @@
 = content_tag :div, class: "question question-#{@question.id}",id: "question-#{@question.id}", data: { question_id: @question.id }
   .row.justisy-content-center
     .col-md-6
-      h1.question-title = @question.title
-      p.question-body = @question.body
+      - cache @question do
+        h1.question-title = @question.title
+        p.question-body = @question.body
     .col-md-6
       h5.mt-5 Rating:
       = render 'shared/rate', resource: @question
@@ -11,11 +12,12 @@
         p Attachments:
         ul
           - @question.attachments.each do |a|
-            li id="attachment-#{a.id}"
-              = link_to a.file.identifier, a.file.url
-              br
-              - if can?(:destroy, @attachment)
-                = link_to 'Delete file', attachment_path(a), method: :delete, remote: true, class: 'btn btn-danger'
+            - cache attachment do
+              li id="attachment-#{a.id}"
+                = link_to a.file.identifier, a.file.url
+                br
+                - if can?(:destroy, @attachment)
+                  = link_to 'Delete file', attachment_path(a), method: :delete, remote: true, class: 'btn btn-danger'
   .new-comment-form
     = render 'comments/form', resource: @question
 
@@ -37,19 +39,18 @@
   .row
     .comments.col-12
       h4 Comments:
-      = render @question.comments
-
+      = render partial: "comments/comment", collection: @question.comments
 
 
 .row
   .col-md-6
     h2.mt-5 Best Answer
     .best-answer
-      = render @question.answers.current_best
+      = render partial: "answers/answer", collection: @question.answers.current_best
 
     h2.mt-5 Answers
     .answers
-      = render @question.answers.not_best
+      = render partial: "answers/answer", collection: @question.answers.not_best
 
   .col-md-6
     h2.mt-5 New answer
